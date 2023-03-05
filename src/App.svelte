@@ -1,24 +1,35 @@
 <script>
   import Database from "./database";
   let page = 0;
-  $: startIndex = page * 2000;
   let revealIndex = -1;
+  const total = 10000;
+  const pageSize = 1000;
+  const numPages = total / pageSize;
+  $: startIndex = page * pageSize;
 
   const handleReveal = (event) => {
     revealIndex = event.currentTarget.dataset.index;
   };
+
+  const handlePageClick = (event) => {
+    console.log(event);
+    page = Number(event.currentTarget.dataset.page);
+    revealIndex = -1;
+  };
 </script>
 
 <section class="pagination">
-  <button data-page={0} class:active={page === 0}>1</button>
-  <button data-page={1} class:active={page === 1}>2</button>
-  <button data-page={2} class:active={page === 2}>3</button>
-  <button data-page={3} class:active={page === 3}>4</button>
-  <button data-page={4} class:active={page === 4}>5</button>
+  {#each { length: numPages } as _, pageNumber}
+    <button
+      on:click={handlePageClick}
+      data-page={pageNumber}
+      class:active={page === pageNumber}>{pageNumber}</button
+    >
+  {/each}
 </section>
 <section>
   <p style="font-size:2rem">例文</p>
-  {#each { length: 2000 } as _, index}
+  {#each { length: pageSize } as _, index}
     <p data-index={index} on:click={handleReveal}>
       <span>{index}</span>
       {Database.japanese[startIndex + index]}
