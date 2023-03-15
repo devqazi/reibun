@@ -28706,11 +28706,27 @@ const Database = {
     "旗が風になびいている。",
     "パンにかびが生えています。",
   ],
+  kanji: [],
+  progress: [],
 };
 
 Database.furigana = Database.furigana.map((set) => {
   let items = set.split(/[\[\] ]+/).filter((item) => !!item);
   return items;
 });
+
+Database.japanese.forEach((line, index) => {
+  let extractedKanji = line
+    .replace(/[^\p{Script_Extensions=Han}]+/gu, "")
+    .split("");
+  extractedKanji.forEach((kanji) => {
+    if (!Database.kanji.includes(kanji)) {
+      Database.kanji.push(kanji);
+    }
+  });
+  Database.progress.push(Database.kanji.length);
+});
+
+window.db = Database;
 
 export default Database;

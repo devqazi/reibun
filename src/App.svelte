@@ -1,90 +1,76 @@
 <script>
   import Database from "./database";
-  let page = 0;
+  let startIndex = 0;
+  let endIndex = 500;
   let revealIndex = -1;
-  const total = 10000;
-  const pageSize = 1000;
-  const numPages = total / pageSize;
-  $: startIndex = page * pageSize;
 
   const handleReveal = (event) => {
-    revealIndex = event.currentTarget.dataset.index;
+    revealIndex = Number(event.currentTarget.dataset.index);
+  };
+  const handleClose = ({ target, currentTarget }) => {
+    if (target === currentTarget) {
+      revealIndex = -1;
+    }
   };
 
-  const handlePageClick = (event) => {
-    console.log(event);
-    page = Number(event.currentTarget.dataset.page);
-    revealIndex = -1;
-  };
+  $: progress = revealIndex < 0 ? 0 : Database.progress[revealIndex];
+  $: trailing =
+    revealIndex < 0
+      ? []
+      : Database.kanji.slice(Math.max(progress - 5, 0), progress);
 </script>
 
-<section class="pagination">
-  {#each { length: numPages } as _, pageNumber}
-    <button
-      on:click={handlePageClick}
-      data-page={pageNumber}
-      class:active={page === pageNumber}>{pageNumber}</button
-    >
-  {/each}
-</section>
 <section>
-  <p style="font-size:2rem">例文</p>
-  {#each { length: pageSize } as _, index}
-    <p data-index={index} on:click={handleReveal}>
-      <span>{index}</span>
+  {#each { length: endIndex - startIndex } as _, index}
+    <p data-index={index + startIndex} on:click={handleReveal}>
+      <span>{index + startIndex + 1}</span>
       {Database.japanese[startIndex + index]}
     </p>
-    {#if revealIndex == index}
-      <div>
-        <span>{Database.english[startIndex + index]}</span>
-        <br />
-        {#each Database.furigana[startIndex + index] as furiItem}
-          <span>{furiItem}</span>
-        {/each}
-      </div>
-    {/if}
   {/each}
 </section>
+{#if revealIndex > -1}
+  <div class="backdrop" on:click={handleClose}>
+    <div class="dialog">
+      <p>{Database.japanese[revealIndex]}</p>
+      <p>
+        {#each Database.furigana[revealIndex] as furi}
+          <span class="bubble">{furi}</span>
+        {/each}
+      </p>
+      <p>{Database.english[revealIndex]}</p>
+      <p>
+        Setence: {startIndex + revealIndex} Kanji: {progress}
+      </p>
+      <p>
+        {#each trailing as kanji}
+          <span class="bubble">{kanji}</span>
+        {/each}
+      </p>
+    </div>
+  </div>
+{/if}
 
 <style>
-  :global(body) {
-    background-color: #202020;
-    padding: 1rem;
-    color: #d0d0d0;
-  }
-  button {
-    background-color: #303030;
-    border-radius: 5px;
-    padding: 5px 10px;
-    border: 0;
-    font-weight: 600;
-    margin: 0;
-    color: #d0d0d0;
-    cursor: pointer;
-  }
-  button.active {
-    background-color: #0284c7;
-  }
-  .pagination {
+  .backdrop {
+    background-color: rgba(0, 0, 0, 0.5);
     display: flex;
     flex-direction: column;
+    justify-content: center;
     position: fixed;
-    top: 0;
-    right: 0;
-    padding: 1rem;
-    gap: 1rem;
+    z-index: 10000;
+    inset: 0;
   }
-  p {
-    margin: 0 0 0.5rem 0;
-    cursor: pointer;
+  .dialog {
+    background-color: #303030;
+    box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.5);
+    padding: 16px;
+    text-align: center;
   }
-  span {
-    margin-right: 0.5rem;
-  }
-  div {
-    margin: 0 0 0.5rem 0.5rem;
-    padding: 0.5rem 1rem;
-    background-color: #f59e0b20;
-    border-left: 2px solid #f59e0b;
+  .bubble {
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    display: inline-block;
+    margin-right: 5px;
+    border-radius: 5px;
+    padding: 2px 6px;
   }
 </style>
