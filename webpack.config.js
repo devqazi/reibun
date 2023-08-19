@@ -5,7 +5,7 @@ module.exports = {
   entry: __dirname + "/src/index.js",
   target: "web",
   output: {
-    path: __dirname + "/public",
+    path: __dirname + "/public/js",
     filename: "dist.js",
   },
   module: {
