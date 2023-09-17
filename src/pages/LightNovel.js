@@ -8,6 +8,7 @@ const useStyles = makeStyles((theme) => ({
     color: "#e0e0e0",
     "& > p": {
       margin: theme.spacing(2),
+      fontSize: "2.5rem",
     },
   },
 }));

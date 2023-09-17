@@ -15,13 +15,7 @@ import {
 
 import { yellow } from "@material-ui/core/colors";
 import React, { useState } from "react";
-import {
-  ExitToApp,
-  Link,
-  MenuBook,
-  Menu as MenuIcon,
-} from "@material-ui/icons";
-import ListItemIcon from "@material-ui/core/ListItemIcon/ListItemIcon";
+import { Menu as MenuIcon } from "@material-ui/icons";
 import ListItemText from "@material-ui/core/ListItemText/ListItemText";
 
 const uesStyles = makeStyles((theme) => ({
@@ -74,6 +68,8 @@ const DrawerItems = [
   { label: "アキカン", page: "akikan" },
   { label: "隣の天使様", page: "tonari-no-tenshi" },
   { label: "回復術し", page: "kaifuku-jutsu-shi" },
+  { label: "浦島太郎", page: "urashima-tarou" },
+  { label: "雪女", page: "yuki-onna" },
 ];
 
 const NavBar = ({ onNavigate }) => {

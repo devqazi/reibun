@@ -1,18 +1,14 @@
 import React, { useState } from "react";
 import json from "./data/reibun-10k.json";
 import {
-  Grid,
   Table,
   TableBody,
   TableCell,
   TableContainer,
-  TableHead,
   TableRow,
   Typography,
   makeStyles,
 } from "@material-ui/core";
-import Paper from "@material-ui/core/Paper/Paper";
-import { Pagination } from "@material-ui/lab";
 
 const uesStyles = makeStyles((theme) => ({
   root: {},

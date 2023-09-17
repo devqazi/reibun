@@ -29,7 +29,7 @@ module.exports = {
       BACKEND_BASE_URL: '"http://3.138.113.146:3000"',
     }),
   ],
-  devtool: "eval",
+  devtool: "source-map",
   resolve: {
     extensions: [".js", ".json"],
   },
