@@ -1,12 +1,6 @@
 import React, { useState } from "react";
 import json from "./data/core-6k.json";
-import {
-  Button,
-  ButtonBase,
-  Grid,
-  Typography,
-  makeStyles,
-} from "@material-ui/core";
+import { ButtonBase, Grid, Typography, makeStyles } from "@material-ui/core";
 import Paper from "@material-ui/core/Paper/Paper";
 
 const uesStyles = makeStyles((theme) => ({
@@ -57,8 +51,8 @@ const Core6k = () => {
           </Paper>
         </Grid>
         <Grid container item xs spacing={1}>
-          {list.map((item) => (
-            <Grid key={item.word} item xs={6} sm={4} md={3} lg={2}>
+          {list.map((item, i) => (
+            <Grid key={i} item xs={6} sm={4} md={3} lg={2}>
               <Paper style={{ padding: 16 }}>
                 <Typography style={{ fontSize: 24 }}>{item.word}</Typography>
               </Paper>

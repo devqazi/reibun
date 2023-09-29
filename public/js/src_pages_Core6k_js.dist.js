@@ -79,9 +79,9 @@ var Core6k = function Core6k() {
     item: true,
     xs: true,
     spacing: 1
-  }, list.map(function (item) {
+  }, list.map(function (item, i) {
     return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_material_ui_core__WEBPACK_IMPORTED_MODULE_3__["default"], {
-      key: item.word,
+      key: i,
       item: true,
       xs: 6,
       sm: 4,
