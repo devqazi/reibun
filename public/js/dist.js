@@ -12858,11 +12858,17 @@ var useStyles = (0,_material_ui_core__WEBPACK_IMPORTED_MODULE_1__["default"])(fu
     root: {
       fontSize: theme.spacing(3),
       fontWeight: 400,
-      color: "#e0e0e0",
-      "& > p": {
-        margin: theme.spacing(2),
-        fontSize: "2.5rem"
-      }
+      color: "#e0e0e0"
+    },
+    line: {
+      margin: theme.spacing(0, 2, 2, 2),
+      fontSize: "2.5rem",
+      lineHeight: 1.1
+    },
+    meta: {
+      margin: theme.spacing(2, 2, 0, 2),
+      opacity: 0.5,
+      fontSize: 12
     }
   };
 });
@@ -12913,13 +12919,12 @@ var LightNovel = function LightNovel(_ref) {
   return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
     className: classes.root
   }, loading ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_material_ui_core__WEBPACK_IMPORTED_MODULE_2__["default"], null) : null, lines.map(function (line, i) {
-    return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("p", {
+    return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react__WEBPACK_IMPORTED_MODULE_0__.Fragment, {
       key: i
-    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("span", {
-      style: {
-        marginRight: 4
-      }
-    }, uniqueKanjiCount[i]), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("span", {
+    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("p", {
+      className: classes.meta
+    }, "Line: ", i, " Kanji: ", uniqueKanjiCount[i]), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("p", {
+      className: classes.line,
       dangerouslySetInnerHTML: {
         __html: line
       }

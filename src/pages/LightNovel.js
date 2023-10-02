@@ -6,10 +6,16 @@ const useStyles = makeStyles((theme) => ({
     fontSize: theme.spacing(3),
     fontWeight: 400,
     color: "#e0e0e0",
-    "& > p": {
-      margin: theme.spacing(2),
-      fontSize: "2.5rem",
-    },
+  },
+  line: {
+    margin: theme.spacing(0, 2, 2, 2),
+    fontSize: "2.5rem",
+    lineHeight: 1.1,
+  },
+  meta: {
+    margin: theme.spacing(2, 2, 0, 2),
+    opacity: 0.5,
+    fontSize: 12,
   },
 }));
 
@@ -56,10 +62,15 @@ const LightNovel = ({ name }) => {
     <div className={classes.root}>
       {loading ? <LinearProgress /> : null}
       {lines.map((line, i) => (
-        <p key={i}>
-          <span style={{ marginRight: 4 }}>{uniqueKanjiCount[i]}</span>
-          <span dangerouslySetInnerHTML={{ __html: line }}></span>
-        </p>
+        <React.Fragment key={i}>
+          <p className={classes.meta}>
+            Line: {i} Kanji: {uniqueKanjiCount[i]}
+          </p>
+          <p
+            className={classes.line}
+            dangerouslySetInnerHTML={{ __html: line }}
+          ></p>
+        </React.Fragment>
       ))}
     </div>
   );
