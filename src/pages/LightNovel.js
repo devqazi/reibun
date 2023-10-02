@@ -13,8 +13,26 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
+const countUniqueKanji = (lines) => {
+  const map = {};
+  const regex = /^[一-龠]$/u;
+  const result = [];
+  for (let i in lines) {
+    let line = lines[i];
+    for (let j = 0; j < line.length; j++) {
+      let char = line[j];
+      if (regex.test(char)) {
+        map[char] = true;
+      }
+    }
+    result.push(Object.keys(map).length);
+  }
+  return result;
+};
+
 const LightNovel = ({ name }) => {
   const [lines, setLines] = useState([]);
+  const [uniqueKanjiCount, setUniqueKanjiCount] = useState([]);
   const [loading, setLoading] = useState(false);
   useEffect(() => {
     setLoading(true);
@@ -22,6 +40,7 @@ const LightNovel = ({ name }) => {
       .then((response) => response.json())
       .then((json) => {
         setLines(json);
+        setUniqueKanjiCount(countUniqueKanji(json));
       })
       .catch((error) => {
         console.log(error);
@@ -37,7 +56,10 @@ const LightNovel = ({ name }) => {
     <div className={classes.root}>
       {loading ? <LinearProgress /> : null}
       {lines.map((line, i) => (
-        <p key={i} dangerouslySetInnerHTML={{ __html: line }}></p>
+        <p key={i}>
+          <span style={{ marginRight: 4 }}>{uniqueKanjiCount[i]}</span>
+          <span dangerouslySetInnerHTML={{ __html: line }}></span>
+        </p>
       ))}
     </div>
   );

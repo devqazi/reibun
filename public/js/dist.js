@@ -12866,22 +12866,43 @@ var useStyles = (0,_material_ui_core__WEBPACK_IMPORTED_MODULE_1__["default"])(fu
     }
   };
 });
+var countUniqueKanji = function countUniqueKanji(lines) {
+  var map = {};
+  var regex = /^[\u4E00-\u9FA0]$/;
+  var result = [];
+  for (var i in lines) {
+    var line = lines[i];
+    for (var j = 0; j < line.length; j++) {
+      var _char = line[j];
+      if (regex.test(_char)) {
+        map[_char] = true;
+      }
+    }
+    result.push(Object.keys(map).length);
+  }
+  return result;
+};
 var LightNovel = function LightNovel(_ref) {
   var name = _ref.name;
   var _useState = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)([]),
     _useState2 = _slicedToArray(_useState, 2),
     lines = _useState2[0],
     setLines = _useState2[1];
-  var _useState3 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false),
+  var _useState3 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)([]),
     _useState4 = _slicedToArray(_useState3, 2),
-    loading = _useState4[0],
-    setLoading = _useState4[1];
+    uniqueKanjiCount = _useState4[0],
+    setUniqueKanjiCount = _useState4[1];
+  var _useState5 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false),
+    _useState6 = _slicedToArray(_useState5, 2),
+    loading = _useState6[0],
+    setLoading = _useState6[1];
   (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
     setLoading(true);
     fetch("/books/" + name).then(function (response) {
       return response.json();
     }).then(function (json) {
       setLines(json);
+      setUniqueKanjiCount(countUniqueKanji(json));
     })["catch"](function (error) {
       console.log(error);
     })["finally"](function () {
@@ -12893,11 +12914,16 @@ var LightNovel = function LightNovel(_ref) {
     className: classes.root
   }, loading ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_material_ui_core__WEBPACK_IMPORTED_MODULE_2__["default"], null) : null, lines.map(function (line, i) {
     return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("p", {
-      key: i,
+      key: i
+    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("span", {
+      style: {
+        marginRight: 4
+      }
+    }, uniqueKanjiCount[i]), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("span", {
       dangerouslySetInnerHTML: {
         __html: line
       }
-    });
+    }));
   }));
 };
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (LightNovel);

@@ -93,6 +93,11 @@ var Core6k = function Core6k() {
       }
     }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_material_ui_core__WEBPACK_IMPORTED_MODULE_6__["default"], {
       style: {
+        fontSize: 12,
+        opacity: 0.5
+      }
+    }, index + i + 1), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_material_ui_core__WEBPACK_IMPORTED_MODULE_6__["default"], {
+      style: {
         fontSize: 24
       }
     }, item.word)));

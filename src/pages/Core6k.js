@@ -54,6 +54,9 @@ const Core6k = () => {
           {list.map((item, i) => (
             <Grid key={i} item xs={6} sm={4} md={3} lg={2}>
               <Paper style={{ padding: 16 }}>
+                <Typography style={{ fontSize: 12, opacity: 0.5 }}>
+                  {index + i + 1}
+                </Typography>
                 <Typography style={{ fontSize: 24 }}>{item.word}</Typography>
               </Paper>
             </Grid>
