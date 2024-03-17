@@ -63,6 +63,7 @@ const uesStyles = makeStyles((theme) => ({
 }));
 
 const DrawerItems = [
+  { label: "Kanji to Vocab", page: "kanji-to-vocab" },
   { label: "言葉 六千", page: "core-6k" },
   { label: "例文", page: "reibun-10k" },
   { label: "アキカン", page: "akikan" },
