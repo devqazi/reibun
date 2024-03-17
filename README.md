@@ -1,5 +1,3 @@
-# jav-torrent-web
+# reibun
 
-1. Open two terminals in and run `npm run server` and `npm run client`.
-
-This is a express-server + reactjs app so you need to build before each deployment.
+Some tools to aid in learning japanese
